@@ -1,5 +1,5 @@
 import pandas as pd # type: ignore
-
+import matplotlib.pyplot as plt # type: ignore
 
 class Data:
     """
@@ -26,16 +26,18 @@ class DataManager:
         df = self.__lireFichier()
 
         #On cree la classe Data
+        global data
         data = Data(df["Time (s)"], df["Acceleration x (m/s^2)"], df["Acceleration y (m/s^2)"], df["Acceleration z (m/s^2)"], df["Absolute acceleration (m/s^2)"])
-        print(data.absAcc)
 
 
     def __lireFichier(self):
        df = pd.read_csv(self.fichier) 
        return df
 
-    def traiterDonnee(self):
-        pass
+    def visualize(self):
+        plt.plot(data.temps, data.acc_x)
+        plt.show()
+
 
 donnee = DataManager("data.csv")
-print(donnee)
+print(donnee.visualize())
